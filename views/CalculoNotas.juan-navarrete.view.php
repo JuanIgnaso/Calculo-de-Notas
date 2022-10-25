@@ -3,7 +3,15 @@
     <h1 class="h3 mb-0 text-gray-800"><?php echo $data['titulo']; ?></h1>
 
 </div>
-
+<?php
+if(isset($data['errores']) && empty($data['errores'])){
+?>
+<div class="alert alert-success">
+    Formato Correcto
+</div>
+<?php
+}
+?>
 <!-- Content Row -->
 
 <div class="row">
@@ -20,10 +28,12 @@
                 <form  method="post" action="./?sec=CalculoNotas.juan_navarrete">
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1">Inserte su codigo JSON Aquí</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="textarea" rows="3"></textarea>
+                       <textarea class="form-control" id="json_notas" name="json_notas" rows="5"><?php echo isset($data['input']['json_notas']) ? $data['input']['json_notas'] : ''; ?></textarea>
+                        <p class="text-danger small"><?php echo isset($data['errores']['json_notas']) ? $data['errores']['json_notas'] : '' ?></p>
+
                     </div>
                     <div class="mb-3">
-                        <input type="submit" value="Enviar" name="enviar" class="btn btn-primary"/>
+                        <input type="submit" value="enviar" name="enviar" class="btn btn-primary"/>
                     </div>
                 </form>
             </div>
