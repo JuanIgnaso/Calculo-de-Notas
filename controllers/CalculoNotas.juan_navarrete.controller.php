@@ -30,21 +30,21 @@ function checkForm(array $data): array{
                         $erroresJson .= "El nombre del módulo no puede estar vacio";
                     }
                     if(!is_array($alumnos)){
-                        $erroresJson .= "El modulo'". htmlentities($modulo)." no tiene un array alumnos asociado<br>";
+                        $erroresJson .= "El modulo '". htmlentities($modulo)." no tiene un array alumnos asociado<br>";
                     }else{
                           foreach($alumnos as $alumno => $notas){
                               if(empty($alumno)){
-                                  $erroresJson.= "El modulo". htmlentities($modulo)." Tiene un alumno sin nombre<br>";
+                                  $erroresJson.= "El modulo ". htmlentities($modulo)." Tiene un alumno sin nombre<br>";
                               }
                               if(!is_array($notas)){
-                                  $erroresJson .= "El alumno".htmlentities($alumno)." No tiene un array de notas asociado en el modulo " .htmlentities($modulo)."<br>";
+                                  $erroresJson .= "El alumno ".htmlentities($alumno)." No tiene un array de notas asociado en el modulo " .htmlentities($modulo)."<br>";
                               }else{
                                   foreach($notas as $nota){
                                       if(!is_numeric($nota)){
-                                          $erroresJson .="El alumno".htmlentities($alumno)." del modulo ".htmlentities($modulo). "Cuenta con una nota que no es un número<br>";
+                                          $erroresJson .="El alumno ".htmlentities($alumno)." del modulo ".htmlentities($modulo). "Cuenta con una nota que no es un número<br>";
                                       }else{
                                           if($nota < 0 || $nota > 10){
-                                              $erroresJson .= "El alumno".htmlentities($alumno)." del modulo ".htmlentities($modulo). "Cuenta con una nota no permitida<br>";
+                                              $erroresJson .= "El alumno ".htmlentities($alumno)." del modulo ".htmlentities($modulo). "Cuenta con una nota no permitida<br>";
                                           }
                                       }
                                      }
