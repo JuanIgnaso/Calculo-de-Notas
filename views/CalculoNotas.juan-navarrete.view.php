@@ -12,6 +12,16 @@ if(isset($data['errores']) && empty($data['errores'])){
 <?php
 }
 ?>
+
+<?php
+if(isset($data['resultado'])){
+?>
+<div class="alert alert-success">
+    <?php echo var_dump($data['resultado']['modulos'])?>
+</div>
+<?php
+}
+?>
 <!-- Content Row -->
 
 <div class="row">

@@ -12,6 +12,8 @@ if(isset($_POST['enviar'])){
     $data['input'] = filter_var_array($_POST);
     if(count($data['errores'])==0){
         $jsonArray = json_decode($_POST['json_notas'],true);
+        $resultado = datosAsignaturas($jsonArray);
+        $data['resultado'] = $resultado;
     }
 }
 
@@ -60,6 +62,68 @@ function checkForm(array $data): array{
         }
     }
     return $errores;
+}
+
+function datosAsignaturas(array $materias): array{
+    $resultado = [];
+    $alumnosS = [];
+    
+    foreach($materias as $nombreMateria => $alumnos){
+        $resultado[$nombreMateria] = [];
+        $aprobados = 0;
+        $suspensos = 0;
+        $max = [
+        'alumno' => '',
+         'nota' => -1
+        ];
+        
+        $min = [
+         'alumno' => '',
+         'nota' => 11
+        ];
+        $notaAcumulada = 0;
+        $contarAlumnos = 0;
+  
+        
+       foreach($alumnos as $alumno => $notas){
+            $notaAcumuladaAlumno = 0;
+            if(!isset($alumnosS[$alumno])){
+                //Se crea el Array Alumnos para meter los alumnos con sus aprobados y sus suspensos para clasificarlos luego
+                $alumnosS[$alumno] = ['aprobados' => 0, 'suspensos' => 0];
+            }
+           $contarAlumnos++;
+           if(max($notas) > $max['nota']){
+               $max['alumno'] = $alumno;
+               $max['nota'] = max($notas);
+           }
+           if(min($notas) < $min['nota']){
+               $min['alumno'] = $alumno;
+               $min['nota'] = min($notas);
+           }
+            foreach($notas as $nota){
+                $notaAcumuladaAlumno += $nota;
+                $notaAcumulada += $nota;
+            }
+           if(($notaAcumuladaAlumno / count($notas)) < 5){
+                    $suspensos++;
+                    $alumnosS[$alumno]['suspensos']++;
+                }else{
+                    $aprobados++;
+                    $alumnosS[$alumno]['aprobados']++;
+                }
+        }
+        if($contarAlumnos > 0){
+            $resultado[$nombreMateria]['media'] = ($notaAcumulada / $contarAlumnos) / 3;
+            $resultado[$nombreMateria]['max'] = $max;
+            $resultado[$nombreMateria]['min'] = $min;
+        }else{
+            $resultado[$nombreMateria]['media'] = 0;
+        }
+        $resultado[$nombreMateria]['aprobados'] = $aprobados;
+        $resultado[$nombreMateria]['suspensos'] = $suspensos;
+    }
+    
+    return array ('modulos' => $resultado, 'alumnos' => $alumnos);
 }
 
 $data['titulo'] = "Calculo de Notas";
