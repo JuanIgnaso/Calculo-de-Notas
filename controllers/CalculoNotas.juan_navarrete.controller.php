@@ -83,6 +83,7 @@ function datosAsignaturas(array $materias): array{
         ];
         $notaAcumulada = 0;
         $contarAlumnos = 0;
+        $contarNota = 0;
   
         
        foreach($alumnos as $alumno => $notas){
@@ -103,6 +104,7 @@ function datosAsignaturas(array $materias): array{
             foreach($notas as $nota){
                 $notaAcumuladaAlumno += $nota;
                 $notaAcumulada += $nota;
+                $contarNota++;
             }
            if(($notaAcumuladaAlumno / count($notas)) < 5){
                     $suspensos++;
@@ -113,7 +115,7 @@ function datosAsignaturas(array $materias): array{
                 }
         }
         if($contarAlumnos > 0){
-            $resultado[$nombreMateria]['media'] = ($notaAcumulada / $contarAlumnos) / 3;
+            $resultado[$nombreMateria]['media'] = $notaAcumulada / $contarNota;
             $resultado[$nombreMateria]['max'] = $max;
             $resultado[$nombreMateria]['min'] = $min;
         }else{
@@ -123,7 +125,7 @@ function datosAsignaturas(array $materias): array{
         $resultado[$nombreMateria]['suspensos'] = $suspensos;
     }
     
-    return array ('modulos' => $resultado, 'alumnos' => $alumnos);
+    return array ('modulos' => $resultado, 'alumnos' => $alumnosS);
 }
 
 $data['titulo'] = "Calculo de Notas";
