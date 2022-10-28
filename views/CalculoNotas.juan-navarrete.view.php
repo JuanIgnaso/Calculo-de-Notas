@@ -45,68 +45,66 @@
                     </table>
                 </div>
             </div>
+            
+           <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="alert alert-success">
+                    <ol>
+                    <?php 
+                    foreach($resultado['alumnos'] as $nombre => $datos){
+                        if($datos['suspensos'] == 0){
+                            echo "<li>$nombre</li>";
+                        }
+                    }
+                    ?>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="alert alert-warning">
+                    <ol>
+                    <?php 
+                    foreach($resultado['alumnos'] as $nombre => $datos){
+                        if($datos['suspensos'] == 1){
+                            echo "<li>$nombre</li>";
+                        }
+                    }
+                    ?>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="alert alert-info">
+                    <ol>
+                    <?php 
+                    foreach($resultado['alumnos'] as $nombre => $datos){
+                        if($datos['suspensos'] <= 1){
+                            echo "<li>$nombre</li>";
+                        }
+                    }
+                    ?>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="alert alert-danger">
+                    <ol>
+                    <?php 
+                    foreach($resultado['alumnos'] as $nombre => $datos){
+                        if($datos['suspensos'] >= 2){
+                            echo "<li>$nombre</li>";
+                        }
+                    }
+                    ?>
+                    </ol>
+                </div>
+            </div>
+        </div>
         </div>
     <?php
     }
-    if(isset($data['resultado'])){
     ?>
-<div>
-    <div class="col-lg-4 col-12">
-        <div class="alert alert-success">
-            <ol>
-            <?php 
-            foreach($resultado['alumnos'] as $nombre => $datos){
-                if($datos['suspensos'] == 0){
-                    echo "<li>$nombre</li>";
-                }
-            }
-            ?>
-            </ol>
-        </div>
-    </div>
-    <div class="col-lg-4 col-12">
-        <div class="alert alert-warning">
-            <ol>
-            <?php 
-            foreach($resultado['alumnos'] as $nombre => $datos){
-                if($datos['suspensos'] == 1){
-                    echo "<li>$nombre</li>";
-                }
-            }
-            ?>
-            </ol>
-        </div>
-    </div>
-    <div class="col-lg-4 col-12">
-        <div class="alert alert-info">
-            <ol>
-            <?php 
-            foreach($resultado['alumnos'] as $nombre => $datos){
-                if($datos['suspensos'] <= 1){
-                    echo "<li>$nombre</li>";
-                }
-            }
-            ?>
-            </ol>
-        </div>
-    </div>
-    <div class="col-lg-4 col-12">
-        <div class="alert alert-danger">
-            <ol>
-            <?php 
-            foreach($resultado['alumnos'] as $nombre => $datos){
-                if($datos['suspensos'] >= 2){
-                    echo "<li>$nombre</li>";
-                }
-            }
-            ?>
-            </ol>
-        </div>
-    </div>
-</div>
-    <?php
-    }
-    ?>
+
 <!-- Content Row -->
 
 <div class="row">
